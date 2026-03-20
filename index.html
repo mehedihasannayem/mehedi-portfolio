@@ -1,404 +1,649 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mehedi Hasan Nayem — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0a0f;
-    --bg2: #111118;
-    --bg3: #18181f;
-    --accent: #c8a96e;
-    --accent2: #e8c98e;
-    --text: #f0ede8;
-    --muted: #888680;
-    --border: rgba(200,169,110,0.15);
-    --glow: rgba(200,169,110,0.08);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Resume Tailor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 48px;
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 17px;
-    letter-spacing: 0.04em;
-    color: var(--accent);
-  }
-  .nav-links { display: flex; gap: 32px; }
-  .nav-links a {
-    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--accent); }
+    body {
+      min-height: 100vh;
+      background: #0a0a0f;
+      color: #e8e8f0;
+      font-family: 'DM Mono', monospace;
+      padding: 40px 24px;
+    }
 
-  /* HERO */
-  .hero {
-    min-height: 90vh;
-    display: flex; align-items: center;
-    padding: 80px 48px 60px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    width: 600px; height: 600px;
-    top: -100px; right: -100px;
-    background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    align-items: center;
-  }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--glow); border: 1px solid var(--border);
-    padding: 6px 14px; border-radius: 100px;
-    font-size: 12px; letter-spacing: 0.1em;
-    color: var(--accent); text-transform: uppercase;
-    margin-bottom: 28px;
-  }
-  .hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; }
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(52px, 7.5vw, 96px);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    margin-bottom: 24px;
-    text-transform: uppercase;
-  }
-  h1 .highlight {
-    color: transparent;
-    -webkit-text-stroke: 2px var(--accent);
-  }
-  .hero-bio {
-    font-size: 16px; line-height: 1.75;
-    color: var(--muted);
-    max-width: 480px;
-    margin-bottom: 40px;
-  }
-  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--accent);
-    color: var(--bg);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500; font-size: 14px;
-    padding: 14px 28px; border-radius: 8px;
-    border: none; cursor: pointer;
-    letter-spacing: 0.03em;
-    transition: background 0.2s, transform 0.15s;
-    text-decoration: none; display: inline-block;
-  }
-  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-  .btn-secondary {
-    background: transparent;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    padding: 13px 28px; border-radius: 8px;
-    border: 1px solid var(--border); cursor: pointer;
-    letter-spacing: 0.03em;
-    transition: border-color 0.2s, color 0.2s;
-    text-decoration: none; display: inline-block;
-  }
-  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .header { text-align: center; margin-bottom: 52px; }
 
-  /* HERO VISUAL */
-  .hero-visual { display: flex; flex-direction: column; gap: 16px; }
-  .stat-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px 24px;
-    display: flex; align-items: center; gap: 16px;
-    transition: border-color 0.2s;
-  }
-  .stat-card:hover { border-color: rgba(200,169,110,0.35); }
-  .stat-icon {
-    width: 44px; height: 44px;
-    background: var(--glow); border: 1px solid var(--border);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; flex-shrink: 0;
-  }
-  .stat-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px; font-weight: 700;
-    color: var(--accent);
-  }
-  .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .badge {
+      display: inline-block;
+      background: rgba(100,255,180,0.08);
+      border: 1px solid rgba(100,255,180,0.25);
+      color: #64ffb4;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
 
-  /* SECTIONS */
-  .section {
-    padding: 80px 48px;
-    max-width: 1100px; margin: 0 auto;
-  }
-  .section-label {
-    font-size: 12px; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 12px;
-  }
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 36px; font-weight: 700;
-    margin-bottom: 48px;
-    letter-spacing: -0.01em;
-  }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #ffffff 0%, #64ffb4 60%, #00bfff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
 
-  /* SKILLS */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-  }
-  .skill-item {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    transition: border-color 0.2s, transform 0.15s;
-    cursor: default;
-  }
-  .skill-item:hover { border-color: rgba(200,169,110,0.4); transform: translateY(-2px); }
-  .stat-icon svg, .skill-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .skill-icon { margin-bottom: 16px; }
-  .skill-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 15px; font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .skill-bar-bg {
-    height: 3px; background: rgba(255,255,255,0.06);
-    border-radius: 2px; margin-top: 10px;
-  }
-  .skill-bar { height: 3px; background: var(--accent); border-radius: 2px; }
+    .subtitle { color: #666680; font-size: 13px; letter-spacing: 1px; }
 
-  /* TOOLS */
-  .tools-grid { display: flex; flex-wrap: wrap; gap: 12px; }
-  .tool-tag {
-    background: var(--bg3); border: 1px solid var(--border);
-    padding: 10px 20px; border-radius: 100px;
-    font-size: 14px; color: var(--muted);
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .tool-tag:hover { color: var(--accent); border-color: var(--accent); }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto 24px;
+    }
 
-  /* CONTACT */
-  .contact-section {
-    margin: 0 auto 80px;
-    max-width: 1100px;
-    padding: 0 48px;
-  }
-  .contact-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 52px 56px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .contact-card::before {
-    content: '';
-    position: absolute;
-    bottom: -60px; left: 50%;
-    transform: translateX(-50%);
-    width: 500px; height: 200px;
-    background: radial-gradient(ellipse, rgba(200,169,110,0.1) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .contact-card h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px; font-weight: 700;
-    margin-bottom: 14px;
-  }
-  .contact-card p { color: var(--muted); font-size: 16px; margin-bottom: 32px; }
-  .contact-email {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--glow); border: 1px solid var(--border);
-    padding: 14px 28px; border-radius: 10px;
-    color: var(--accent); font-size: 15px; text-decoration: none;
-    transition: border-color 0.2s;
-  }
-  .contact-email:hover { border-color: var(--accent); }
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
 
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 24px 48px;
-    display: flex; align-items: center; justify-content: space-between;
-    color: var(--muted); font-size: 13px;
-  }
+    .panel {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
 
-  @media (max-width: 700px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-    .hero { padding: 60px 20px 40px; }
-    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    .section, .contact-section { padding: 60px 20px; }
-    .contact-card { padding: 36px 24px; }
-    footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
-  }
-</style>
+    .panel:hover { border-color: rgba(100,255,180,0.2); }
+
+    .panel-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #64ffb4;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: #64ffb4;
+      border-radius: 50%;
+    }
+
+    .upload-zone {
+      border: 1.5px dashed rgba(100,255,180,0.3);
+      border-radius: 8px;
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: rgba(100,255,180,0.02);
+      display: block;
+    }
+
+    .upload-zone:hover, .upload-zone.drag {
+      border-color: rgba(100,255,180,0.7);
+      background: rgba(100,255,180,0.05);
+    }
+
+    .upload-icon { font-size: 32px; margin-bottom: 10px; }
+
+    .upload-text { color: #888; font-size: 12px; line-height: 1.6; }
+    .upload-text strong { color: #64ffb4; }
+
+    #file-input { display: none; }
+
+    .file-ready {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(100,255,180,0.07);
+      border: 1px solid rgba(100,255,180,0.3);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .file-icon { font-size: 24px; }
+    .file-name { font-size: 12px; color: #64ffb4; word-break: break-all; }
+    .file-size { font-size: 11px; color: #555; margin-top: 2px; }
+
+    .remove-btn {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: #555;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+
+    .remove-btn:hover { color: #ff6b6b; }
+
+    textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      color: #c8c8d8;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      padding: 14px;
+      resize: vertical;
+      min-height: 180px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus { border-color: rgba(100,255,180,0.4); }
+    textarea::placeholder { color: #444; }
+
+    .char-count { text-align: right; font-size: 10px; color: #444; margin-top: 6px; }
+
+    .action-row {
+      max-width: 1000px;
+      margin: 0 auto 32px;
+    }
+
+    .btn-main {
+      width: 100%;
+      background: linear-gradient(135deg, #64ffb4, #00bfff);
+      border: none;
+      border-radius: 8px;
+      color: #0a0a0f;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1px;
+      padding: 16px 32px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      text-transform: uppercase;
+    }
+
+    .btn-main:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+    .btn-main:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .loading-bar {
+      max-width: 1000px;
+      margin: 0 auto 12px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      height: 3px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .loading-bar.active { display: block; }
+
+    .loading-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #64ffb4, #00bfff);
+      border-radius: 4px;
+      animation: loading 1.4s ease-in-out infinite;
+    }
+
+    @keyframes loading {
+      0% { width: 0%; margin-left: 0; }
+      50% { width: 60%; margin-left: 20%; }
+      100% { width: 0%; margin-left: 100%; }
+    }
+
+    .status-text {
+      max-width: 1000px;
+      margin: 0 auto 24px;
+      font-size: 11px;
+      color: #64ffb4;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.8;
+      display: none;
+    }
+
+    .status-text.active { display: block; }
+
+    .result-panel {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(100,255,180,0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .result-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-header {
+      background: rgba(100,255,180,0.06);
+      border-bottom: 1px solid rgba(100,255,180,0.15);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .result-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #64ffb4;
+    }
+
+    .download-btn {
+      background: linear-gradient(135deg, #64ffb4, #00bfff);
+      border: none;
+      border-radius: 6px;
+      color: #0a0a0f;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1px;
+      padding: 8px 20px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+
+    .download-btn:hover { opacity: 0.85; }
+
+    .result-content {
+      padding: 28px;
+      font-size: 13px;
+      line-height: 1.9;
+      color: #c8c8d8;
+      white-space: pre-wrap;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .result-content::-webkit-scrollbar { width: 4px; }
+    .result-content::-webkit-scrollbar-thumb { background: rgba(100,255,180,0.2); border-radius: 2px; }
+
+    .error-box {
+      max-width: 1000px;
+      margin: 0 auto 16px;
+      background: rgba(255,80,80,0.07);
+      border: 1px solid rgba(255,80,80,0.3);
+      border-radius: 8px;
+      padding: 16px 20px;
+      color: #ff8888;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-box.active { display: block; }
+
+    /* API Key section */
+    .api-section {
+      max-width: 1000px;
+      margin: 0 auto 24px;
+      background: rgba(255,200,50,0.05);
+      border: 1px solid rgba(255,200,50,0.2);
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+
+    .api-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ffc832;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .api-label::before {
+      content: '🔑';
+      font-size: 14px;
+    }
+
+    .api-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,200,50,0.2);
+      border-radius: 8px;
+      color: #c8c8d8;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .api-input:focus { border-color: rgba(255,200,50,0.5); }
+    .api-input::placeholder { color: #444; }
+
+    .api-note {
+      font-size: 11px;
+      color: #666;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .api-note a { color: #ffc832; text-decoration: none; }
+    .api-note a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="logo">MHN</div>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
+  <div class="header">
+    <div class="badge">✦ AI Powered</div>
+    <h1>Resume Tailor</h1>
+    <p class="subtitle">Upload your resume · Paste job description · Get tailored instantly</p>
   </div>
-</nav>
 
-<!-- HERO -->
-<section class="hero" id="about">
-  <div class="hero-grid">
-    <div>
-      <div class="hero-tag"><span></span> Available for work</div>
-      <h1>Mehedi<br>Hasan<br><span class="highlight">Nayem</span></h1>
-      <p class="hero-bio">Creative problem solver using design and technology to build practical solutions for real-world challenges. Passionate about AI, innovation, and creating impactful digital products for Bangladesh.</p>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-primary">Hire Me</a>
-        <a href="#skills" class="btn-secondary">View Skills</a>
+  <!-- API Key Section -->
+  <div class="api-section">
+    <div class="api-label">Anthropic API Key</div>
+    <input type="password" class="api-input" id="api-key" placeholder="sk-ant-api03-..." />
+    <p class="api-note">
+      Your key is never stored or sent anywhere except directly to Anthropic's API. 
+      Get a free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>
+    </p>
+  </div>
+
+  <div class="grid">
+    <!-- Upload Panel -->
+    <div class="panel">
+      <div class="panel-label">Resume Upload</div>
+      <div id="upload-area">
+        <label
+          id="upload-zone"
+          for="file-input"
+          class="upload-zone"
+          ondragover="handleDragOver(event)"
+          ondragleave="handleDragLeave()"
+          ondrop="handleDrop(event)"
+        >
+          <div class="upload-icon">📄</div>
+          <div class="upload-text">
+            <strong>Click to upload</strong> or drag & drop<br/>
+            Supports .docx and .txt files
+          </div>
+        </label>
+        <input type="file" id="file-input" accept=".docx,.doc,.txt" onchange="handleFileChange(event)" />
       </div>
-    </div>
-    <div class="hero-visual">
-      <div class="stat-card">
-        <div class="stat-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
+      <div id="file-ready" class="file-ready" style="display:none;">
+        <div class="file-icon">📝</div>
         <div>
-          <div class="stat-num">40+</div>
-          <div class="stat-label">Learners Trained</div>
+          <div class="file-name" id="file-name-text"></div>
+          <div class="file-size" id="file-size-text"></div>
         </div>
+        <button class="remove-btn" onclick="removeFile()">✕</button>
       </div>
-      <div class="stat-card">
-        <div class="stat-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-        </div>
-        <div>
-          <div class="stat-num">Graphic</div>
-          <div class="stat-label">Designer & Creative</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <div>
-          <div class="stat-num">AI-First</div>
-          <div class="stat-label">Design & Innovation</div>
-        </div>
-      </div>
+    </div>
+
+    <!-- Job Description Panel -->
+    <div class="panel">
+      <div class="panel-label">Job Description</div>
+      <textarea
+        id="job-desc"
+        placeholder="Paste the job description here...&#10;&#10;Include the full description with requirements, responsibilities, and skills needed."
+        oninput="updateCharCount()"
+        rows="7"
+      ></textarea>
+      <div class="char-count" id="char-count">0 chars</div>
     </div>
   </div>
-</section>
 
-<div style="max-width:1100px;margin:0 auto;height:1px;background:var(--border);"></div>
-
-<!-- SKILLS -->
-<div class="section" id="skills">
-  <div class="section-label">What I Do</div>
-  <div class="section-title">Core Skills</div>
-  <div class="skills-grid">
-    <div class="skill-item">
-      <div class="skill-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--accent)" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      </div>
-      <div class="skill-name">Adobe Photoshop</div>
-      <div style="font-size:13px;color:var(--muted)">Photo editing & compositing</div>
-      <div class="skill-bar-bg"><div class="skill-bar" style="width:92%"></div></div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--accent)" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-      </div>
-      <div class="skill-name">Adobe Illustrator</div>
-      <div style="font-size:13px;color:var(--muted)">Vector & branding design</div>
-      <div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--accent)" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-      </div>
-      <div class="skill-name">Creative Problem Solving</div>
-      <div style="font-size:13px;color:var(--muted)">Design-driven thinking</div>
-      <div class="skill-bar-bg"><div class="skill-bar" style="width:95%"></div></div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--accent)" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-      </div>
-      <div class="skill-name">Negotiation</div>
-      <div style="font-size:13px;color:var(--muted)">Client & stakeholder mgmt</div>
-      <div class="skill-bar-bg"><div class="skill-bar" style="width:82%"></div></div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--accent)" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      </div>
-      <div class="skill-name">Time Management</div>
-      <div style="font-size:13px;color:var(--muted)">On-time delivery</div>
-      <div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div>
-    </div>
-    <div class="skill-item">
-      <div class="skill-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--accent)" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      </div>
-      <div class="skill-name">Microsoft Office</div>
-      <div style="font-size:13px;color:var(--muted)">Docs, sheets & presentations</div>
-      <div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div>
-    </div>
+  <div class="action-row">
+    <button class="btn-main" id="tailor-btn" onclick="handleTailor()" disabled>✦ Tailor My Resume</button>
   </div>
-</div>
 
-<!-- TOOLS -->
-<div class="section" style="padding-top:0">
-  <div class="section-label">Toolkit</div>
-  <div class="section-title" style="margin-bottom:28px">Tools & Tech</div>
-  <div class="tools-grid">
-    <div class="tool-tag">Adobe Photoshop</div>
-    <div class="tool-tag">Adobe Illustrator</div>
-    <div class="tool-tag">Microsoft Word</div>
-    <div class="tool-tag">Microsoft Excel</div>
-    <div class="tool-tag">PowerPoint</div>
-    <div class="tool-tag">AI Tools</div>
-    <div class="tool-tag">Canva</div>
+  <div class="loading-bar" id="loading-bar"><div class="loading-fill"></div></div>
+  <div class="status-text" id="status-text"></div>
+  <div class="error-box" id="error-box"></div>
+
+  <div class="result-panel" id="result-panel">
+    <div class="result-header">
+      <div class="result-title">✦ Tailored Resume Ready</div>
+      <button class="download-btn" onclick="handleDownload()">↓ Download .txt</button>
+    </div>
+    <div class="result-content" id="result-content"></div>
   </div>
-</div>
 
-<!-- CONTACT -->
-<div class="contact-section" id="contact">
-  <div class="contact-card">
-    <div class="section-label" style="margin-bottom:16px">Let's Connect</div>
-    <h2>Ready to work<br>together?</h2>
-    <p>Open to freelance projects, collaborations, and full-time opportunities.</p>
-    <a href="mailto:muhammadtanim440@gmail.com" class="contact-email"><svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg> muhammadtanim440@gmail.com</a>
+  <script>
+    let currentFile = null;
+    let currentFileText = "";
+    let resultText = "";
+
+    function formatBytes(n) {
+      return n < 1024 ? n + " B" : (n / 1024).toFixed(1) + " KB";
+    }
+
+    function updateCharCount() {
+      const val = document.getElementById('job-desc').value;
+      document.getElementById('char-count').textContent = val.length + ' chars';
+      checkReady();
+    }
+
+    function checkReady() {
+      const apiKey = document.getElementById('api-key').value.trim();
+      const jobDesc = document.getElementById('job-desc').value.trim();
+      const ready = currentFile && jobDesc.length > 30 && apiKey.startsWith('sk-');
+      document.getElementById('tailor-btn').disabled = !ready;
+    }
+
+    document.getElementById('api-key').addEventListener('input', checkReady);
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      document.getElementById('upload-zone').classList.add('drag');
+    }
+
+    function handleDragLeave() {
+      document.getElementById('upload-zone').classList.remove('drag');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      handleDragLeave();
+      const f = e.dataTransfer.files[0];
+      if (f) processFile(f);
+    }
+
+    function handleFileChange(e) {
+      const f = e.target.files[0];
+      if (f) processFile(f);
+    }
+
+    function processFile(f) {
+      const ext = f.name.split('.').pop().toLowerCase();
+      if (!['docx', 'doc', 'txt'].includes(ext)) {
+        showError('Please upload a .docx or .txt file.');
+        return;
+      }
+      clearError();
+      currentFile = f;
+
+      if (ext === 'txt') {
+        const reader = new FileReader();
+        reader.onload = (e) => { currentFileText = e.target.result; };
+        reader.readAsText(f);
+      } else {
+        currentFileText = '__DOCX__';
+      }
+
+      document.getElementById('upload-area').style.display = 'none';
+      document.getElementById('file-ready').style.display = 'flex';
+      document.getElementById('file-name-text').textContent = f.name;
+      document.getElementById('file-size-text').textContent = formatBytes(f.size);
+      checkReady();
+    }
+
+    function removeFile() {
+      currentFile = null;
+      currentFileText = "";
+      document.getElementById('upload-area').style.display = 'block';
+      document.getElementById('file-ready').style.display = 'none';
+      document.getElementById('file-input').value = '';
+      document.getElementById('result-panel').classList.remove('active');
+      checkReady();
+    }
+
+    function setLoading(on, msg) {
+      document.getElementById('loading-bar').classList.toggle('active', on);
+      const st = document.getElementById('status-text');
+      st.classList.toggle('active', on);
+      st.textContent = msg || '';
+      document.getElementById('tailor-btn').disabled = on;
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('error-box');
+      el.textContent = '⚠ ' + msg;
+      el.classList.add('active');
+    }
+
+    function clearError() {
+      document.getElementById('error-box').classList.remove('active');
+    }
+
+    async function handleTailor() {
+      const apiKey = document.getElementById('api-key').value.trim();
+      const jobDesc = document.getElementById('job-desc').value.trim();
+
+      if (!currentFile || !jobDesc || !apiKey) return;
+
+      clearError();
+      setLoading(true, 'Reading your resume...');
+      document.getElementById('result-panel').classList.remove('active');
+
+      try {
+        let messages;
+        const ext = currentFile.name.split('.').pop().toLowerCase();
+
+        if (ext === 'docx' || ext === 'doc') {
+          // Read as base64
+          const base64 = await new Promise((res, rej) => {
+            const r = new FileReader();
+            r.onload = () => res(r.result.split(',')[1]);
+            r.onerror = () => rej(new Error('File read failed'));
+            r.readAsDataURL(currentFile);
+          });
+
+          setLoading(true, 'Analyzing job description...');
+
+          messages = [{
+            role: 'user',
+            content: [
+              {
+                type: 'document',
+                source: {
+                  type: 'base64',
+                  media_type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                  data: base64
+                }
+              },
+              {
+                type: 'text',
+                text: `You are an expert resume writer. I have uploaded my resume as a Word document.
+
+Job Description:
+---
+${jobDesc}
+---
+
+Please tailor my resume specifically for this job. Add relevant keywords, highlight matching skills, and make it ATS-friendly. Return ONLY the complete tailored resume text with clear section headings like:
+[NAME & CONTACT]
+[PROFESSIONAL SUMMARY]
+[SKILLS]
+[EXPERIENCE]
+[EDUCATION]`
+              }
+            ]
+          }];
+        } else {
+          messages = [{
+            role: 'user',
+            content: `You are an expert resume writer. Here is my current resume:
+
+---RESUME---
+${currentFileText}
+---END---
+
+Job Description:
+---
+${jobDesc}
+---
+
+Please tailor my resume specifically for this job. Add relevant keywords, highlight matching skills, and make it ATS-friendly. Return ONLY the complete tailored resume text with clear section headings like:
+[NAME & CONTACT]
+[PROFESSIONAL SUMMARY]
+[SKILLS]
+[EXPERIENCE]
+[EDUCATION]`
+          }];
+        }
+
+        setLoading(true, 'AI is tailoring your resume...');
+
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true'
+          },
+          body: JSON.stringify({
+            model: 'claude-opus-4-6',
+            max_tokens: 2048,
+            messages
+          })
+        });
+
+        const data = await response.json();
+        if (data.error) throw new Error(data.error.message);
+
+        resultText = data.content?.map(b => b.text || '').join('') || '';
+        document.getElementById('result-content').textContent = resultText;
+        document.getElementById('result-panel').classList.add('active');
+        setLoading(false);
+
+      } catch (err) {
+        showError('Something went wrong: ' + err.message);
+        setLoading(false);
+      }
+    }
+
+    function handleDownload() {
+      if (!resultText) return;
+      const blob = new Blob([resultText], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tailored_resume.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
